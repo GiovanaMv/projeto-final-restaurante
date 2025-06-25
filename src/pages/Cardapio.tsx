@@ -42,7 +42,6 @@ const Section = styled.section`
     margin-bottom: 32px;
     margin-top: 32px;
     gap: 32px;
-
 `;
 const Card = styled.div`
     width: 350px;
@@ -78,7 +77,6 @@ const Card = styled.div`
         padding: 6px;
         margin-top: 12px;
     }
-    
 `;
 const Modal = styled.div`
     position: fixed;
