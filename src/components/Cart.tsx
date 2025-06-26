@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useCart } from "../components/CarrinhoContext";
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { removeFromCart } from '../store/cartSlice';
 
 const Sidebar = styled.aside`
     position: fixed;
@@ -94,12 +95,11 @@ const Sidebar = styled.aside`
     }
 `;
 
-type CartProps = {
-    onClose: () => void;
-};
-
-export function Cart({ onClose }: CartProps) {
-    const { cartItems, cartTotal, removeFromCart } = useCart();
+export function Cart({ onClose }: { onClose: () => void }) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const dispatch = useAppDispatch();
+    const cartItems = useAppSelector((state) => state.cart.items);
+    const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
 
     return (
         <Sidebar>
@@ -114,7 +114,7 @@ export function Cart({ onClose }: CartProps) {
                             <div className="info">
                                 <h4>{item.name}</h4>
                                 <p>R$ {item.price.toFixed(2)}</p>
-                                <button onClick={() => removeFromCart(item)}><i className="bi bi-trash3"></i></button>
+                                <button onClick={() => removeFromCart(item.id)}><i className="bi bi-trash3"></i></button>
                             </div>
                         </div>
                     ))}

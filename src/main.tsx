@@ -1,15 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom';
-import { CartProvider } from './components/CarrinhoContext.tsx';
+import { Provider } from 'react-redux';
+import App from './App.tsx'
+import { store } from './store/store.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <CartProvider>
+      <Provider store={store}>
         <App />
-      </CartProvider>
+      </Provider>
     </BrowserRouter>
   </StrictMode>
 )
+

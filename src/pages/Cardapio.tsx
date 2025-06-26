@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PizzaIndividual from '../assets/prato3-pizza.png';
-import { useCart } from "../components/CarrinhoContext";
 import { Header } from "../components/Header";
 import { Cart } from "../components/Cart";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice'; 
+import { v4 as uuidv4 } from 'uuid';
 const Banner = styled.div`
     position: relative;
     height: 280px;
@@ -119,8 +121,7 @@ const Modal = styled.div`
     }
     }
 
-    `;
-
+`;
 const Overlay = styled.div`
     position: fixed;
     top: 0;
@@ -138,14 +139,15 @@ export function Cardapio() {
     const openModal = () => SetIsModalOpen(true);
     const closeModal = () => SetIsModalOpen(false);
 
-    const {addToCart} = useCart();
+    const dispatch = useDispatch();
 
     const handleAdd = () => {
-        addToCart({
+        dispatch(addToCart({
+            id: uuidv4(),
             name: "Pizza Margherita",
             price: 60.90,
             image: PizzaIndividual
-        });
+        }));
     }
 
     return (

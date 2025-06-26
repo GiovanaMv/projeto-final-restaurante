@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useCart } from './CarrinhoContext';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../store/store'; 
+import { removeFromCart } from '../store/cartSlice'; 
 
 const Sidebar = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -76,8 +78,14 @@ type CartSidebarProps = {
 };
 
 const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
-  const { cartItems, cartTotal, removeFromCart } = useCart();
   const [step, setStep] = useState<'cart' | 'delivery' | 'payment' | 'confirmation'>('cart');
+
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartTotal = useSelector((state: RootState) => 
+    state.cart.items.reduce((total, item) => total + item.price, 0)
+  );
 
   return (
     <Sidebar isOpen={isOpen}>
@@ -92,7 +100,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
                 <li key={index}>
                   <img src={item.image} alt={item.name} />
                   <span> {item.name} <br></br> R$ {item.price.toFixed(2)} </span>
-                  <button onClick={() => removeFromCart(item)} className='trash'> <i className="bi bi-trash3"></i> </button>
+                  <button onClick={() => dispatch(removeFromCart(item.id))} className='trash'> <i className="bi bi-trash3"></i> </button>
                 </li>
               ))}
             </ul>
