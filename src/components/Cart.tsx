@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppSelector } from '../store/hooks';
 import { removeFromCart } from '../store/cartSlice';
 
 const Sidebar = styled.aside`
@@ -96,8 +96,8 @@ const Sidebar = styled.aside`
 `;
 
 export function Cart({ onClose }: { onClose: () => void }) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dispatch = useAppDispatch();
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
     const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
 
