@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../components/CarrinhoContext";
 import { useState } from "react";
-// import { Cart } from "./Cart"; // importa aqui
 import CartSidebar from "./CardSidebar";
 
 const Container = styled.header`
@@ -138,7 +137,7 @@ export function Header({ }: HeaderProps) {
                 <div className="logo"> <h1>Efood<i className="bi bi-fork-knife ms-2"></i></h1> </div>
                 </div>
             )}
-
+            
         </Container>
     )
 }

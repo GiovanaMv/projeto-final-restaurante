@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store/store'; 
-import { removeFromCart } from '../store/cartSlice'; 
+import { clearCart, removeFromCart } from '../store/cartSlice'; 
 
-const Sidebar = styled.div<{ isOpen: boolean }>`
+const Sidebar = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
-  right: ${({ isOpen }) => (isOpen ? '0' : '-400px')};
+  right: ${(props) => (props.$isOpen ? '0' : '-400px')};
   width: 400px;
   height: 100%;
   background-color: rgb(214, 40, 40);
@@ -83,12 +83,85 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const cartTotal = useSelector((state: RootState) => 
-    state.cart.items.reduce((total, item) => total + item.price, 0)
-  );
+  const cartTotal = useSelector((state: RootState) =>  state.cart.items.reduce((total, item) => total + item.price, 0) );
+
+const handleCheckout = async () => {
+  const orderPayload = {
+    products: cartItems.map((item) => ({
+    id: item.id,
+    price: item.price
+  })),
+    delivery: {
+      receiver: deliveryInfo.receiver,
+      address: {
+        description: deliveryInfo.address,
+        city: "São Paulo",
+        zipCode: deliveryInfo.cep,
+        number: "123",
+        neighborhood: deliveryInfo.neighborhood,
+        complement: deliveryInfo.complement
+      }
+    },
+    payment: {
+      card: {
+        name: paymentInfo.cardName,
+        number: paymentInfo.cardNumber,
+        code: Number(paymentInfo.cvv),
+        expires: {
+          month: Number(paymentInfo.expirationMonth),
+          year: Number(paymentInfo.expirationYear)
+        }
+      }
+    }
+  };
+
+  try {
+    const response = await fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderPayload),
+    });
+
+    const data = await response.json();
+    setConfirmationData(data);
+    setStep('confirmation');
+    dispatch(clearCart());
+    
+  } catch (error) {
+    console.error('Erro ao enviar pedido:', error);
+    alert('Erro ao concluir o pedido.');
+  }
+};
+
+
+const [deliveryInfo, setDeliveryInfo] = useState({
+  receiver: '',
+  address: '',
+  neighborhood: '',
+  cep: '',
+  complement: '',
+});
+
+const [paymentInfo, setPaymentInfo] = useState({
+  cardName: '',
+  cardNumber: '',
+  cvv: '',
+  expirationMonth: '',
+  expirationYear: '',
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const [confirmationData, setConfirmationData] = useState<any>(null); // dados vindos da API
+
+useEffect(() => {
+  if (confirmationData) {
+    console.log('Dados de confirmação:', confirmationData);
+  }
+}, [confirmationData]);
+    
 
   return (
-    <Sidebar isOpen={isOpen}>
+    <Sidebar $isOpen={isOpen}>
       {step === 'cart' && (
         <div className="cart-content">
           <h2>Seu Carrinho</h2>
@@ -111,50 +184,60 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
         </div>
       )}
 
-      {step === 'delivery' && (
-        <div className="delivery-form">
-          <h2>Entrega</h2>
-          <form>
-            <StyledLabel>Quem irá receber: <input type="text" /> </StyledLabel>
+{step === 'delivery' && (
+  <div className="delivery-form">
+    <h2>Entrega</h2>
+    <form>
+    <StyledLabel>Quem irá receber:  <input type="text" value={deliveryInfo.receiver} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, receiver: e.target.value })} /> </StyledLabel>
 
-            <StyledLabel> Endereço: <input type="text" /> </StyledLabel>
+    <StyledLabel> Endereço:  <input type="text"  value={deliveryInfo.address} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })} /> </StyledLabel>
 
-            <StyledLabel> Bairro: <input type="text" /> </StyledLabel>
+    <StyledLabel> Bairro:  <input type="text" value={deliveryInfo.neighborhood} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, neighborhood: e.target.value }) } /> </StyledLabel>
 
-            <StyledLabel> CEP: <input type="text" /> </StyledLabel>
+    <StyledLabel> CEP:  <input type="text" value={deliveryInfo.cep} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, cep: e.target.value }) } /> </StyledLabel>
 
-            <StyledLabel> Complemento (opcional):  <input type="text" /> </StyledLabel>
-          </form>
-          <button type='button' onClick={() => setStep('payment')} className='Pagamento'>Pagamento</button>
-          <button className='Voltar' onClick={() => setStep('cart')}> Voltar para o carrinho </button>
-        </div>
-      )}
+    <StyledLabel> Complemento (opcional):  <input type="text" value={deliveryInfo.complement} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, complement: e.target.value }) } /> </StyledLabel>
+    </form>
+    
+    <button type='button' onClick={() => setStep('payment')} className='Pagamento'>Pagamento</button>
+    <button className='Voltar' onClick={() => setStep('cart')}> Voltar para o carrinho </button>
+  </div>
+)}
 
-      {step === 'payment' && (
-        <div className="payment-form">
-          <h2>Pagamento - Valor a pagar R$ {cartTotal.toFixed(2)}</h2>
-          <form>
-            <StyledLabel>Nome no cartão: <input type="text" /></StyledLabel>
-            <StyledLabel>Número do cartão: <input type="text" /></StyledLabel>
-            <StyledLabel>CVV: <input type="text" /></StyledLabel>
-            <StyledLabel>Mês de vencimento: <input type="text" /></StyledLabel>
-            <StyledLabel>Ano de vencimento: <input type="text" /></StyledLabel>
-          </form>
-          <button onClick={() => setStep('delivery')} className="Voltar">Voltar para o endereço</button>
-          <button onClick={() => setStep('confirmation')} className="Pagamento">Finalizar pagamento</button>
-        </div>
-      )}
+{step === 'payment' && (
+  <div className="payment-form">
+    <h2>Pagamento - Valor a pagar R$ {cartTotal.toFixed(2)}</h2>
+    <form>
+      <StyledLabel> Nome no cartão:  <input type="text" value={paymentInfo.cardName} onChange={(e) => setPaymentInfo({ ...paymentInfo, cardName: e.target.value })} /> </StyledLabel>
+            
+      <StyledLabel> Número do cartão:  <input type="text" value={paymentInfo.cardNumber} onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })} /> </StyledLabel>
+            
+      <StyledLabel> CVV:  <input type="text" value={paymentInfo.cvv} onChange={(e) => setPaymentInfo({ ...paymentInfo, cvv: e.target.value })} /> </StyledLabel>
+            
+      <StyledLabel> Mês de vencimento:  <input type="text" value={paymentInfo.expirationMonth} onChange={(e) => setPaymentInfo({ ...paymentInfo, expirationMonth: e.target.value })} /> </StyledLabel>
+  
+      <StyledLabel>Ano de vencimento:  <input type="text" value={paymentInfo.expirationYear} onChange={(e) => setPaymentInfo({ ...paymentInfo, expirationYear: e.target.value })} /> </StyledLabel>
+    </form>
+    
+    <button onClick={() => setStep('delivery')} className="Voltar">Voltar para o endereço</button>
+    <button onClick={handleCheckout} className="Pagamento">Finalizar pagamento</button>
+  </div>
+)}
 
-      {step === 'confirmation' && (
-        <div className="confirmation">
-          <h2>Pedido realizado!</h2>
-          <p>Estamos felizes em informar que seu pedido foi recebido e está em preparo. Em breve será entregue no endereço informado.</p>
-          <p>Agradecemos por sua compra! <i className="bi bi-chat-heart"></i></p>
-          <button onClick={onClose} className="fechar">Concluir</button>
-        </div>
-      )}
-    </Sidebar>
-  );
+{step === 'confirmation' && confirmationData && (
+  <div className="confirmation">
+    <h2>Pedido #{confirmationData?.orderId} realizado!</h2>
+    <p>Endereço: {confirmationData?.delivery?.address?.description}</p>
+    <p>Bairro: {confirmationData?.delivery?.address?.neighborhood}</p>
+    <p>CEP: {confirmationData?.delivery?.address?.zipCode}</p>
+    <p>Entregue para: {confirmationData?.delivery?.receiver}</p>
+    <p>Valor total: R$ {cartTotal.toFixed(2)}</p>
+    <p>Agradecemos por sua compra! <i className="bi bi-chat-heart"></i></p>
+    <button onClick={onClose} className="fechar">Concluir</button>
+  </div>
+)}
+</Sidebar>
+);
 };
 
 export default CartSidebar;
