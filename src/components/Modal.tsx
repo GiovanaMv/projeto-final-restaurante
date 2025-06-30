@@ -22,7 +22,7 @@ const ModalContent = styled.div`
   background-color: transparent;
   display: flex;
   margin-left: auto;
-  color: #cf0909;
+  color: #E66767;
   font-size: 1.2rem;
   }
 `;

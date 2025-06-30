@@ -13,9 +13,9 @@ const Locais = styled.div`
   margin-bottom: 24px;
 
   .saiba-mais {
-  border: 3px solid #cf0909;
+  border: 3px solid #E66767;
   border-radius: 12px;
-  color: #cf0909;
+  color: #E66767;
   text-align: center;
   padding: 12px;
 
@@ -33,17 +33,13 @@ const Locais = styled.div`
   }
 
   button {
-  background-color: #cf0909;
+  background-color: #E66767;
   border: none;
   border-radius: 8px;
   color: white;
   font-size: 1.1rem;
   font-family: "Lora", serif;
   padding: 6px;
-
-  &:hover {
-  background-color:rgb(182, 9, 9);
-  }
   }
 
   p {
@@ -53,7 +49,7 @@ const Locais = styled.div`
 `;
 
 const Visualizar = styled.div`
-color: #cf0909;
+color: #E66767;
 text-align: center;
 `;
 

@@ -10,13 +10,50 @@ const Sidebar = styled.div<{ $isOpen: boolean }>`
   right: ${(props) => (props.$isOpen ? '0' : '-400px')};
   width: 400px;
   height: 100%;
-  background-color: rgb(214, 40, 40);
+  background-color: #E66767;
   color: #fff;
   padding: 20px;
   transition: right 0.3s ease;
   overflow-y: auto;
   z-index: 1;
   
+  .confirmation {
+    text-align: start;
+    
+    p {
+      font-size: 0.9rem;
+    }
+    
+    .text {
+      margin-bottom: 12px;
+      margin-top: 24px;
+
+      p {
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  h2 {
+  font-size: 1.3rem;
+  }
+
+  .cart-content, .delivery-form, .payment-form {
+  text-align: start;
+  }
+
+  .cart-content {
+    .Continuar {
+      margin-left: auto;
+  }
+  }
+
+  .delivery-form, .payment-form {
+    .Pagamento {
+      margin-left: auto;
+  }
+  }
+
   button {
     background-color: transparent;
     color: white;
@@ -28,34 +65,38 @@ const Sidebar = styled.div<{ $isOpen: boolean }>`
   .fechar, .Continuar, .Pagamento, .Voltar {
     &:hover {
     background-color: white;
-    color: rgb(214, 40, 40);
+    color: #E66767;
     }
   }
   img{ 
   width: 40%;
   border-radius: 12px;
-  margin-top: 8px;
   }
   ul {
   padding-left: 0px;
 
   li {
   display: flex;
-  alignItems: center;
-  marginBottom: 10px;
+  background-color: #FFEBD9;
+  color: #E66767;
+  font-weight: bold;
+  margin-bottom: 12px;
+  padding: 6px;
 
   span {
-  margin-left: 12px;
-  margin-top: 12px;
+  margin-left: 3px;
+  text-align: start;
   }
+
   .trash {
     background: 'transparent';
     border: none;
-    color: 'white';
-    margin-left: 48px;
-    margin-top: 62px;
+    color: #E66767;
+    margin-left: 52px;
+    margin-top: 62px; 
   }
   }
+  
 `;
 const StyledLabel = styled.label`
   display: grid;
@@ -159,7 +200,6 @@ useEffect(() => {
   }
 }, [confirmationData]);
     
-
   return (
     <Sidebar $isOpen={isOpen}>
       {step === 'cart' && (
@@ -179,8 +219,8 @@ useEffect(() => {
             </ul>
           )}
           <p>Total: R$ {cartTotal.toFixed(2)}</p>
+          <button onClick={onClose} className='fechar'>Voltar</button>
           <button onClick={() => setStep('delivery')} className='Continuar'>Continuar com a entrega</button>
-          <button onClick={onClose} className='fechar'>Fechar carrinho</button>
         </div>
       )}
 
@@ -199,8 +239,8 @@ useEffect(() => {
     <StyledLabel> Complemento (opcional):  <input type="text" value={deliveryInfo.complement} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, complement: e.target.value }) } /> </StyledLabel>
     </form>
     
-    <button type='button' onClick={() => setStep('payment')} className='Pagamento'>Pagamento</button>
-    <button className='Voltar' onClick={() => setStep('cart')}> Voltar para o carrinho </button>
+    <button className='Voltar' onClick={() => setStep('cart')}> Voltar</button>
+    <button className='Pagamento' type='button' onClick={() => setStep('payment')} >Pagamento</button>
   </div>
 )}
 
@@ -219,19 +259,25 @@ useEffect(() => {
       <StyledLabel>Ano de vencimento:  <input type="text" value={paymentInfo.expirationYear} onChange={(e) => setPaymentInfo({ ...paymentInfo, expirationYear: e.target.value })} /> </StyledLabel>
     </form>
     
-    <button onClick={() => setStep('delivery')} className="Voltar">Voltar para o endereço</button>
+    <button onClick={() => setStep('delivery')} className="Voltar">Voltar</button>
     <button onClick={handleCheckout} className="Pagamento">Finalizar pagamento</button>
   </div>
 )}
 
 {step === 'confirmation' && confirmationData && (
-  <div className="confirmation">
+  <div className="confirmation" >
     <h2>Pedido #{confirmationData?.orderId} realizado!</h2>
     <p>Endereço: {confirmationData?.delivery?.address?.description}</p>
     <p>Bairro: {confirmationData?.delivery?.address?.neighborhood}</p>
     <p>CEP: {confirmationData?.delivery?.address?.zipCode}</p>
     <p>Entregue para: {confirmationData?.delivery?.receiver}</p>
     <p>Valor total: R$ {cartTotal.toFixed(2)}</p>
+    <div className='text'>
+      <p>Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, será entregue no endereço fornecido.</p>
+      <p>Gostaríamos de ressaltar que nossos entregadores não estão autorizados a realizar cobranças extras.</p> 
+      <p>Lembre-se da importância de higienizar as mãos após o recebimento do pedido, garantindo assim sua segurança e bem-estar durante a refeição.</p> 
+      <p>Esperamos que desfrute de uma deliciosa e agradável experiência gastronômica. Bom apetite!</p>
+    </div>
     <p>Agradecemos por sua compra! <i className="bi bi-chat-heart"></i></p>
     <button onClick={onClose} className="fechar">Concluir</button>
   </div>

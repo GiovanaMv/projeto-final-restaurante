@@ -15,9 +15,9 @@ const Section = styled.section`
 
 const Card = styled.div`
     position: relative;
-    border: 2px solid #cf0909;
+    border: 2px solid #E66767;
     border-radius: 3px;
-    color: #cf0909;
+    color: #E66767;
 
     img {
         width: 100%;
@@ -28,7 +28,7 @@ const Card = styled.div`
         position: absolute;
         top: 10px;
         right: 10px;
-        background-color: #cf0909;
+        background-color:  #E66767;
         color: white;
         padding: 4px 8px;
         border-radius: 3px;
@@ -42,10 +42,10 @@ const Card = styled.div`
         margin-bottom: 0px;
     }
     button {
-        background-color:rgb(253, 160, 117);
+        background-color:#E66767;
         border: none;
         border-radius: 3px;
-        color: #cf0909;
+        color:  white;
         padding: 3px;
         margin: 12px;
         

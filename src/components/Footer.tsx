@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Section = styled.footer`
     background-color:rgb(254, 207, 176);
     padding: 16px;
-    color: #cf0909;
+    color: #E66767;
     text-align: center;
 
     .logo {
@@ -13,7 +13,7 @@ const Section = styled.footer`
 
     h1 {
     display: flex; 
-    border: 3px solid  #cf0909;
+    border: 3px solid  #E66767;
     border-radius: 12px;
     width: 112px;
     padding: 6px;

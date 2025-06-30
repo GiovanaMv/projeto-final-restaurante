@@ -6,6 +6,7 @@ import { Cart } from "../components/Cart";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../store/cartSlice'; 
 import { v4 as uuidv4 } from 'uuid';
+
 const Banner = styled.div`
     position: relative;
     height: 280px;
@@ -48,7 +49,7 @@ const Section = styled.section`
 const Card = styled.div`
     width: 350px;
     text-align: center;
-    background-color:rgb(214, 40, 40);
+    background-color:#E66767;
     color: white;
     padding: 6px;
     cursor: pointer;
@@ -74,7 +75,7 @@ const Card = styled.div`
         background-color: white;
         border: none;
         border-radius: 3px;
-        color: #cf0909;
+        color: #E66767;
         font-weight: bold;
         padding: 6px;
         margin-top: 12px;
@@ -87,7 +88,7 @@ const Modal = styled.div`
     transform: translate(-50%, -50%);
     width: 1024px;
     padding: 24px;
-    background-color: rgb(214, 40, 40);
+    background-color: #E66767;
     color: white;
     border-radius: 8px;
     display : grid;
@@ -111,14 +112,12 @@ const Modal = styled.div`
     margin-left: 424px;
     }
     .add-carrinho {
-    margin-left: 0px;
-    border: solid 2px white;
-    padding: 12px;
-    border-radius: 20px;
-
-    &:hover {
-    background-color:  rgb(196, 28, 28);
-    }
+    background-color: white;
+    border-radius: 2px;
+    color: #E66767;
+    font-weight: bold;
+    margin-left: 18px;
+    padding: 3px;
     }
 
 `;

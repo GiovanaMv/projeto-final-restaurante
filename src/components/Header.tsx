@@ -7,13 +7,13 @@ import CartSidebar from "./CardSidebar";
 const Container = styled.header`
 background-color:rgb(254, 207, 176);
 padding: 16px;
-color: #cf0909;
+color: #E66767;
 text-align: center;
 
 h1 {
-    border: 3px solid  #cf0909;
+    border: 3px solid  #E66767;
     display: flex; 
-    border-radius: 12px;
+    border-radius: 3px;
     width: 140px;
     padding: 6px;
     background-color: white;
@@ -39,14 +39,14 @@ h2 {
 .restaurante {
     border: none;
     background-color: transparent;
-    color: #cf0909;
+    color: #E66767;
     font-weight: bold;
     font-size: 1rem;
     margin-left: 162px;  
     margin-bottom: 2px;    
     
     &:hover {
-    color:rgb(80, 1, 1);
+    color:#cf0909;
     }
 }      
 }
@@ -61,13 +61,9 @@ h2 {
     .restaurante, .back {
     background-color: transparent;
     border: none;
-    color: #cf0909;
+    color: #E66767;
     letter-spacing: 1px;
     font-weight: bold;
-    
-    &:hover {
-    color:rgb(180, 0, 0);
-    }
 }
 }
 .third-page {
@@ -80,19 +76,15 @@ h2 {
     .back {
     background-color: transparent;
     border: none;
-    color: #cf0909;
+    color: #E66767;
     letter-spacing: 1px;
     font-weight: bold;
-
-    &:hover {
-    color:rgb(180, 0, 0);
-    }
 }
 `;
 const Carrinho = styled.button`
 background-color: transparent;
 border: none;
-color: rgb(214, 40, 40);
+color: #E66767;
 font-weight: bold;
 top: 35px;
 right: 120px;
