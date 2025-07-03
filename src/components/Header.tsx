@@ -2,94 +2,81 @@ import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../components/CarrinhoContext";
 import { useState } from "react";
+import { useAppSelector } from "../store/hooks";
 import CartSidebar from "./CardSidebar";
+import Fundo from "../assets/fundo.png"
+import Logo from "../assets/logo.png"
 
 const Container = styled.header`
-background-color:rgb(254, 207, 176);
-padding: 16px;
 color: #E66767;
 text-align: center;
 
-h1 {
-    border: 3px solid  #E66767;
-    display: flex; 
-    border-radius: 3px;
-    width: 140px;
-    padding: 6px;
-    background-color: white;
-    font-family: "Lora", serif;
-    font-size: 2rem;
-    }    
-
-.one-page {
-    display: grid;
-    grid-template-columns: 200px 750px 300px;
+button {
+    background-color: transparent;
+    border: none;
+    color: #E66767;
+    font-weight: bold;
+}
 
 .logo {
-    display: block; 
-    text-align: start;
-    margin-left: 32px;
-}
-h2 {
-    margin-top: 17px;
-    font-size: 1.3rem;
-    margin-left: 150px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 42px;
+    width: 6%;
     }
 
-.restaurante {
-    border: none;
-    background-color: transparent;
-    color: #E66767;
+.one-page {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    background-image: url(${Fundo});
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+
+    h2 {
+    font-size: 1.9rem;
+    font-family: Roboto;
     font-weight: bold;
-    font-size: 1rem;
-    margin-left: 162px;  
-    margin-bottom: 2px;    
-    
-    &:hover {
-    color:#cf0909;
+    width: 500px;
+    margin-left: 428px;
     }
-}      
 }
-.second-page {
+    .third-page {
+    position: relative;
+    width: 100%;
+    background-image: url(${Fundo});
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
     display: grid;
-    grid-template-columns: 120px 700px 180px;
+    grid-template-columns: 100px 1fr;
 
     .logo {
-    margin-left: 450px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 518px;
+    width: 8%;
     }
+    }
+`;
 
-    .restaurante, .back {
-    background-color: transparent;
-    border: none;
-    color: #E66767;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-}
-.third-page {
+const Banner = styled.div`
+    width: 100%;
+    padding: 6px;
+    background-image: url(${Fundo});
+    background-position: center;
+    z-index: 0;
     display: grid;
-    grid-template-columns: 100px 1000px;
+    grid-template-columns: 1fr 1fr 1fr;
 
     .logo {
-    margin: 0 480px;
+    width: 100px;
     }
-    .back {
-    background-color: transparent;
-    border: none;
-    color: #E66767;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
 `;
-const Carrinho = styled.button`
-background-color: transparent;
-border: none;
-color: #E66767;
-font-weight: bold;
-top: 35px;
-right: 120px;
-position: absolute;
-`;
+
 
 type HeaderProps = {
     setCartOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -101,35 +88,37 @@ export function Header({ }: HeaderProps) {
     const location = useLocation();
     const [isCartOpen, setIsCartOpen] = useState(false);
     useCart();
+    const cartItems = useAppSelector((state) => state.cart.items);
+    const cartCount = cartItems.length;
 
     return (
         <Container>
             {location.pathname === '/' && (
                 <>
-                <div className="one-page">
-                    <div className="logo"> <h1>Efood<i className="bi bi-fork-knife ms-2"></i></h1> </div>
-                    <h2>Viva a experiência gastronômica no conforto da sua casa!</h2>
-                    <button className="restaurante" onClick={() => navigate('./restaurantes')}> Ver restaurantes </button>
-                </div>
+                    <div className="one-page">
+                        <img className="logo" src={Logo} alt="Logo-EFOOD" />
+                        <h2>Viva experiências gastronômicas no conforto da sua casa</h2>
+                    </div>
                 </>
             )}
 
             {location.pathname === '/pedido' && (
-                <div className="second-page">
-                    <button className="back" onClick={() => navigate(-1)}><i className="bi bi-arrow-left-short"></i>Voltar</button>
-                    <div className="logo"> <h1>Efood<i className="bi bi-fork-knife ms-2"></i></h1> </div>
-                    <button className="restaurante" onClick={() => navigate('/restaurantes')}> Ver restaurantes </button>
-                    <Carrinho onClick={() => setIsCartOpen(true)}>Ver Carrinho<i className="bi bi-cart ms-1"></i></Carrinho><CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-                </div>
+                <>
+                    <Banner>
+                        <button onClick={() => navigate('/restaurantes')}> Ver restaurantes </button>
+                        <img className="logo" src={Logo} alt="Logo-EFOOD" />
+                        <button onClick={() => setIsCartOpen(true)}>{cartCount} produto(s) no carrinho</button><CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+                    </Banner>
+                </>
             )}
 
             {location.pathname === '/restaurantes' && (
                 <div className="third-page">
-                <button className="back" onClick={() => navigate(-1)}><i className="bi bi-arrow-left-short"></i>Voltar</button>
-                <div className="logo"> <h1>Efood<i className="bi bi-fork-knife ms-2"></i></h1> </div>
+                    <button onClick={() => navigate(-1)}><i className="bi bi-arrow-left-short"></i>Voltar</button>
+                    <img className="logo" src={Logo} alt="Logo-EFOOD" />
                 </div>
             )}
-            
+
         </Container>
     )
 }

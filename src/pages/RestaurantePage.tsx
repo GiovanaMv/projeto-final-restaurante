@@ -6,40 +6,36 @@ import { Header } from '../components/Header';
 
 const Locais = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 350px);
-  gap: 80px;
-  margin-left: 52px;
+  grid-template-columns: repeat(3, 300px);
+  gap: 24px;
+  margin-left: 204px;
   margin-top: 24px;
   margin-bottom: 24px;
 
   .saiba-mais {
   border: 3px solid #E66767;
-  border-radius: 12px;
   color: #E66767;
   text-align: center;
   padding: 12px;
 
   img{
-  border-radius: 6px;
   width: 200px;
   height: 150px;
+  object-fit: cover;
   margin-top: 12px;
   }
 
   h3{
   font-size: 1.3rem;
   font-weight: bold;
-  font-family: "Lora", serif;
   }
 
   button {
   background-color: #E66767;
   border: none;
-  border-radius: 8px;
   color: white;
-  font-size: 1.1rem;
-  font-family: "Lora", serif;
-  padding: 6px;
+  font-size: 14px;
+  padding: 3px;
   }
 
   p {

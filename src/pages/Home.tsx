@@ -7,61 +7,92 @@ import { Header } from "../components/Header";
 
 const Section = styled.section`
     display: grid;
-    grid-template-columns: repeat(2, 420px);
-    gap: 32px;
+    grid-template-columns: 1fr 1fr;
+    margin: 52px;
+    margin-bottom: 52px;
+    margin-left: 120px;
     justify-content: center; 
-    margin: 18px auto; 
+    gap: 32px;
 `;
-
 const Card = styled.div`
     position: relative;
-    border: 2px solid #E66767;
     border-radius: 3px;
     color: #E66767;
-
+    max-width:472px;
+    height: 400px;
+        
     img {
-        width: 100%;
+        width: 472px;
         height: 217px;
-        border-radius-top: 3px;
+        background-size: cover;
+        background-position: center;
+        object-fit: cover;
+    }
+    .layout {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+    height: 176px;
+    border: 1px solid #E66767;
+    border-top: none;
+    background-color: #FFFFFF;
     }
     .label {
         position: absolute;
-        top: 10px;
         right: 10px;
         background-color:  #E66767;
         color: white;
         padding: 4px 8px;
-        border-radius: 3px;
-        font-size: 0.9rem;
+        font-size: 12px;
         letter-spacing: 1px;
+        margin-top: 12px;
     }
     p {
-        width: 390px;
-        text-align: justify;
-        margin-left: 12px;
+        width: 420px;
+        text-align: start;
+        margin-left: 6px;
         margin-bottom: 0px;
+        font-size: 14px;
+        line-height: 22px;
     }
     button {
         background-color:#E66767;
         border: none;
-        border-radius: 3px;
-        color:  white;
+        color:  #FFEBD9;
         padding: 3px;
-        margin: 12px;
-        
+        font-family: Roboto;
+        margin-left: 6px;
+        margin-top: 8px;
     }
     div {
         display: flex;
-        margin-left: 12px;
-        margin-top: 12px;
-        gap: 240px; 
+        margin-left: 6px;
+        gap: 318px; 
     h3 {
-        font-size: 1.2rem;    
-        font-weight: bold;
+        font-size: 18px;    
+        font-weight: 700;
+        margin-top: 12px;
+    }
+    span {
+    margin-top: 12px;
+    }
+}
+.destaques {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 12px;
+    gap: 12px;
+
+    .destaque, .first {
+    background-color:  #E66767;
+    padding: 4px 8px;
     }
 }
 `;
-
 
 export function Home() {
     return (
@@ -69,68 +100,83 @@ export function Home() {
         <Header />
         <Section>
             <Card>
-                <div className="label">Destaque da semana</div>
-                <img src={PratoSushi} alt="Prato de Sushi" />
-                <div>
+                <div className="destaques">
+                    <div className="destaque">Destaque da semana</div>
+                    <div className="first">Japonesa</div>
+                </div>
+                    <img src={PratoSushi} alt="Prato de Sushi" />
+                <div className="layout">
+                    <div>
                     <h3>Hioki Sushi</h3>
                     <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
                 <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
                 <Link to="pedido"><button>Saiba mais</button></Link>
+                </div>
             </Card>
 
             <Card>
                 <div className="label">Italiana</div>
-                <img src={PizzaIndividual} alt="Pizza Individuais" />
-                <div>
+                    <img src={PizzaIndividual} alt="Pizza Individuais" />
+                <div className="layout">
+                    <div>
                     <h3>Hioki Sushi</h3>
                     <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
                 <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
                 <Link to="pedido"><button>Saiba mais</button></Link>
+                </div>
             </Card>
 
             <Card>
                 <div className="label">Italiana</div>
-                <img src={PratoMacarrao} alt="Prato de Sushi" />
-                <div>
+                    <img src={PratoMacarrao} alt="Prato de Sushi" />
+                <div className="layout">
+                    <div>
                     <h3>Hioki Sushi</h3>
                     <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
                 <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
                 <Link to="pedido"><button>Saiba mais</button></Link>
+                </div>
             </Card>
             <Card>
                 <div className="label">Italiana</div>
-                <img src={PratoSushi} alt="Prato de Sushi" />
-                <div>
+                    <img src={PratoSushi} alt="Prato de Sushi" />
+                <div className="layout">
+                    <div>
                     <h3>Hioki Sushi</h3>
                     <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
                 <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
                 <Link to="pedido"><button>Saiba mais</button></Link>
-            </Card>
-
-            <Card>
-                <div className="label">Italiana</div>
-                <img src={PizzaIndividual} alt="Pizza Individuais" />
-                <div>
-                    <h3>Hioki Sushi</h3>
-                    <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
-                <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
-                <Link to="pedido"><button>Saiba mais</button></Link>
             </Card>
 
             <Card>
                 <div className="label">Italiana</div>
-                <img src={PratoMacarrao} alt="Prato de Sushi" />
-                <div>
+                    <img src={PizzaIndividual} alt="Pizza Individuais" />
+                <div className="layout">
+                    <div>
                     <h3>Hioki Sushi</h3>
                     <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
                 </div>
                 <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
                 <Link to="pedido"><button>Saiba mais</button></Link>
+                </div>
+            </Card>
+
+            <Card>
+                <div className="label">Italiana</div>
+                    <img src={PratoMacarrao} alt="Prato de Sushi" />
+                <div className="layout">
+                    <div>
+                    <h3>Hioki Sushi</h3>
+                    <span>4.9<i className="bi bi-star-fill ms-2 text-warning"></i></span>
+                </div>
+                <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!</p>
+                <Link to="pedido"><button>Saiba mais</button></Link>
+                </div>
             </Card>
         </Section>
        </>

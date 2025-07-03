@@ -11,10 +11,9 @@ const GlobalStyle = createGlobalStyle`
     
   } 
   body {
-    background: #fcffe6;
+    background: #FFF8F2;
     color: #222;
-    font-family: 'Arial', sans-serif;
-    -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto';
   }
 
   #root {

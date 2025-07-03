@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import Logo from "../assets/logo.png"
+
 
 const Section = styled.footer`
-    background-color:rgb(254, 207, 176);
+    background-color:#FFEBD9;
     padding: 16px;
     color: #E66767;
     text-align: center;
@@ -9,34 +11,23 @@ const Section = styled.footer`
     .logo {
     display: flex; 
     justify-content: center;
+    margin: 0 auto;
     margin-bottom: 16px;
-
-    h1 {
-    display: flex; 
-    border: 3px solid  #E66767;
-    border-radius: 12px;
-    width: 112px;
-    padding: 6px;
-    margin: 3px;
-    background-color: white;
-    font-family: "Lora", serif;
-    font-size: 1.5rem;
-    }
 }
     i {
         cursor: pointer;
     }
     p {
-    font-size: 1rem;
+    font-size: 10px;
     width: 650px;
     display: flex; 
-    margin: 18px auto 0px;
+    margin: 32px auto 0px;
     }
 `;
 export function Footer() {
     return (
         <Section>
-            <div className="logo"><h1>Efood<i className="bi bi-fork-knife ms-2"></i></h1></div>
+            <img className="logo" src={Logo} alt="Logo-EFOOD" />
             <span><i className="bi bi-whatsapp"></i><i className="bi bi-instagram ms-3 me-3"></i><i className="bi bi-facebook"></i></span>
             <p>A efood é uma plataforma para divulgação de estabelecimentos, a responsabilidade pela entrega, qualidade dos produtos é toda do estabelecimento contratado. </p>
         </Section>
