@@ -108,8 +108,8 @@ export function Cart({ onClose }: { onClose: () => void }) {
                 <p>Seu carrinho está vazio.</p>
             ) : (
                 <>
-                    {cartItems.map((item, index) => (
-                        <div key={index} className="cart-item">
+                    {cartItems.map((item) => (
+                        <div key={item.id} className="cart-item">
                             <img src={item.image} alt={item.name} />
                             <div className="info">
                                 <h4>{item.name}</h4>

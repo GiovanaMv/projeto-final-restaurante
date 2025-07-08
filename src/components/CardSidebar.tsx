@@ -56,11 +56,10 @@ button {
   cursor: pointer;
 }
 `;
-
 const Into = styled.div`
   img{ 
   width: 100%;
-  heigth: 100%;
+  height: 100%;
   }
   .valor {
   margin-top: 42px;
@@ -99,7 +98,7 @@ const Into = styled.div`
   }
 }
   .trash {
-  background-color: 'transparent';
+  background-color: transparent;
   border: none;
   color: #E66767;
   margin-top: 62px; 
@@ -209,6 +208,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
   const cartTotal = useSelector((state: RootState) => state.cart.items.reduce((total, item) => total + item.price, 0));
 
   const handleCheckout = async () => {
+    
     const orderPayload = {
       products: cartItems.map((item) => ({
         id: item.id,
@@ -246,9 +246,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
       });
 
       const data = await response.json();
+
       setConfirmationData(data);
       setStep('confirmation');
       dispatch(clearCart());
+
+      console.log('Mudando para tela de confirmação!')
 
     } catch (error) {
       console.error('Erro ao enviar pedido:', error);
@@ -276,12 +279,19 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [confirmationData, setConfirmationData] = useState<any>(null); // dados vindos da API
 
-  useEffect(() => {
-    if (confirmationData) {
-      console.log('Dados de confirmação:', confirmationData);
-    }
-  }, [confirmationData]);
+  // useEffect(() => {
+  //   if (confirmationData) {
+  //     console.log('Dados de confirmação:', confirmationData);
+  //   }
+  // }, [confirmationData]);
 
+
+useEffect(() => {
+  if (confirmationData) {
+    console.log('Dados de confirmação:', confirmationData);
+  }
+}, [confirmationData]);
+  
   return (
     <Sidebar $isOpen={isOpen}>
       {step === 'cart' && (
@@ -307,10 +317,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
             <p>Valor total </p>
             <p>R$ {cartTotal.toFixed(2)}</p>
           </div>
-          <button className='Continuar' onClick={() => setStep('delivery')}>Continuar com a entrega</button>
+          <button className='Continuar'  onClick={() => { console.log('Clicou em continuar com a entrega');  setStep('delivery'); }}>
+            Continuar com a entrega
+          </button>
         </Into>
       )}
-
+      
       {step === 'delivery' && (
         <Delivery> 
           <button onClick={onClose} className='fechar'><i className="bi bi-x-lg"></i></button>
@@ -325,7 +337,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ isOpen, onClose }) => {
             <div className='cep-number'>
               <StyledLabel> CEP <input type="number" value={deliveryInfo.cep} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, cep: e.target.value })} /> </StyledLabel>
 
-              <StyledLabel> Número <input type="number" value={deliveryInfo.number} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, number: e.target.value })} /> </StyledLabel>
+              <StyledLabel> Número <input type="text" inputMode='numeric' value={deliveryInfo.number} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, number: e.target.value })} /> </StyledLabel>
             </div>
 
             <StyledLabel> Complemento (opcional) <input type="text" value={deliveryInfo.complement} onChange={(e) => setDeliveryInfo({ ...deliveryInfo, complement: e.target.value })} /> </StyledLabel>

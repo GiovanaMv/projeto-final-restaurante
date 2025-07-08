@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../components/CarrinhoContext";
+// import { useCart } from "../components/CarrinhoContext";
 import { useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import CartSidebar from "./CardSidebar";
@@ -62,7 +62,6 @@ button {
     }
     }
 `;
-
 const Banner = styled.div`
     width: 100%;
     padding: 6px;
@@ -77,17 +76,19 @@ const Banner = styled.div`
     }
 `;
 
+// type HeaderProps = {
+//     setCartOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
-type HeaderProps = {
-    setCartOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+type HeaderProps = {};
 
 // eslint-disable-next-line no-empty-pattern
 export function Header({ }: HeaderProps) {
     const navigate = useNavigate();
     const location = useLocation();
     const [isCartOpen, setIsCartOpen] = useState(false);
-    useCart();
+    // useCart();
     const cartItems = useAppSelector((state) => state.cart.items);
     const cartCount = cartItems.length;
 
