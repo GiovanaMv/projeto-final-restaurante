@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import React from 'react';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -26,22 +25,3 @@ const ModalContent = styled.div`
   font-size: 1.2rem;
   }
 `;
-
-type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-};
-
-export function Modal({ isOpen, onClose, children }: ModalProps) {
-  if (!isOpen) return null;
-
-  return (
-    <ModalBackground onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose}><i className="bi bi-x-lg"></i></button>
-        {children}
-      </ModalContent>
-    </ModalBackground>
-  );
-}

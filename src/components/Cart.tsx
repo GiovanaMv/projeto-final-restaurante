@@ -1,3 +1,5 @@
+// Cart.tsx 
+
 import styled from "styled-components";
 import { useAppSelector } from '../store/hooks';
 import { removeFromCart } from '../store/cartSlice';

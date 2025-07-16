@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Header } from "../components/Header";
-import { Cardapio } from "../pages/Cardapio";
-import { Cart } from "../components/Cart";
+import { Header } from "./header/Header";
+import { Cardapio } from "../pages/pratos/Cardapio";
+import { Cart } from "./Cart";
 
 export function CardapioPage() {
     const [cartOpen, setCartOpen] = useState(false);

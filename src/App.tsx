@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from "./styles/GlobalStyle";
-import { Home } from "./pages/Home";
-import { Footer } from "./components/Footer";
-import { Cardapio } from "./pages/Cardapio";
+import { Home } from "./pages/home/Home";
+import { Footer } from "./components/footer/Footer";
+import { Cardapio } from "./pages/pratos/Cardapio";
 import { CartProvider } from './context/CarrinhoContext';
-import { RestaurantesPage } from './pages/RestaurantePage';
+import { RestaurantesPage } from './pages/restaurante/RestaurantePage';
 
 
 
